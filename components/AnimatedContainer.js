@@ -3,7 +3,6 @@ import { Text, StyleSheet, Animated, Dimensions, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import ColorInterpolator from "../utils/ColorInterpolator.js";
 
-const { width, height } = Dimensions.get("window");
 
 export default class AnimatedContainer extends React.Component {
   constructor(props) {
@@ -11,7 +10,7 @@ export default class AnimatedContainer extends React.Component {
     this.animation = new Animated.Value(0);
     this.state = {
       gradientColors: ["#000", "#222"],
-      gradientOpacity: new Animated.Value(0.6),
+      gradientOpacity: new Animated.Value(0.3),
     };
     this.colorInterpolator = new ColorInterpolator();
   }
@@ -20,8 +19,8 @@ export default class AnimatedContainer extends React.Component {
     this.animation.addListener(({ value }) => {
       this.setState({
         gradientColors: [
-          this.colorInterpolator.interpolate("#000000", "#2a432e", value),
-          this.colorInterpolator.interpolate("#292929", "#000000", value),
+          this.colorInterpolator.interpolate("#000000", "#000000", value),
+          this.colorInterpolator.interpolate("#FF8C00", "#000000", value),
         ],
       });
     });
@@ -35,13 +34,13 @@ export default class AnimatedContainer extends React.Component {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.animation, {
-          toValue: 0.5,
+          toValue: 0.8,
           duration: 2000,
           useNativeDriver: false,
         }),
         Animated.timing(this.animation, {
           toValue: 0,
-          duration: 2000,
+          duration: 10000,
           useNativeDriver: false,
         }),
       ])
@@ -50,12 +49,12 @@ export default class AnimatedContainer extends React.Component {
 
   render() {
     return (
-      <Animated.View style={StyleSheet.absoluteFill}>
+      <Animated.View style={[StyleSheet.absoluteFill, {opacity: 0.2}]}>
         <LinearGradient
           colors={this.state.gradientColors}
           style={StyleSheet.absoluteFill}
-          start={{ x: 0.5, y: 0.5 }}
-          end={{ x: 1, y: 1 }}
+          start={{ x: 0.9, y: 0.5 }}
+          end={{ x: 0.9, y: 0.02}}
         />
 
         {this.props.children}

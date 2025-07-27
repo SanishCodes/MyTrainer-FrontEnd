@@ -39,7 +39,7 @@ export default function NavBar({ activeTab, onTabPress }) {
       {tabs.map((tab) => (
         <TouchableOpacity
           key={tab.id}
-          style={[styles.tab, activeTab == tab.id && styles.activeTab]}
+          style={styles.tab}
           onPress={() => onTabPress(tab.id)}
         >
           <Image
@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
     height: height * 0.1,
     borderRadius: 15,
     borderTopWidth: 1,
-    borderTopColor: "#9bc063",
-    shadowColor: "#9bc063",
+    borderTopColor: "#FF8C00",
+    shadowColor: "#FF8C00",
 
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.5,
     shadowRadius: 10,
     elevation: 15,
   },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
 
   activeIcon: {
     // Add this missing style
-    tintColor: "#9bc063",
+    tintColor: "#FF8C00",
     width: width * 0.08, // 6% of screen width
     height: width * 0.08,
   },
@@ -84,13 +84,5 @@ const styles = StyleSheet.create({
     height: width * 0.06,
     marginBottom: 4,
     tintColor: "#ffffff",
-  },
-
-  label: {
-    fontSize: 12,
-    color: "#666",
-  },
-  activeLabel: {
-    color: "#9bc063",
   },
 });
