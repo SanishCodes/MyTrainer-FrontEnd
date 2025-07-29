@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Text,
   StyleSheet,
@@ -11,11 +11,14 @@ import {
 import AnimatedContainer from "../components/AnimatedContainer";
 import { VideoView, useVideoPlayer } from "expo-video";
 import { Ionicons } from "@expo/vector-icons";
+import CameraScreen from "./CameraScreen";
+
+import { StatusBar } from "expo-status-bar";
 
 const { width, height } = Dimensions.get("window");
 
 export default function Coach() {
-  const [searchText, setSearchText] = useState("");
+  const [showCamera, setShowCamera] = useState(false);
 
   const player = useVideoPlayer(
     "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -25,8 +28,17 @@ export default function Coach() {
     }
   );
 
+  const handleCameraBack = useCallback(() => {
+    setShowCamera(false);
+  }, []);
+
+  if (showCamera) {
+    return <CameraScreen onBack={handleCameraBack} />;
+  }
+
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <AnimatedContainer />
 
       <View style={styles.content}>
@@ -38,8 +50,6 @@ export default function Coach() {
             style={styles.searchInput}
             placeholder="search workouts"
             placeholderTextColor="white"
-            value={searchText}
-            onChangeText={setSearchText}
           />
         </View>
         <View style={styles.videoContent}>
@@ -80,6 +90,7 @@ export default function Coach() {
           activeOpacity={0.8}
           onPress={() => {
             console.log("Check Your Form pressed");
+            setShowCamera(true);
             // Form analysis feature coming soon
           }}
           style={styles.analyserCard}

@@ -1,12 +1,14 @@
 import React from "react";
-
 import { Text, StyleSheet, View, Dimensions } from "react-native";
 import AnimatedContainer from "../components/AnimatedContainer";
+import { StatusBar } from "expo-status-bar";
+
 const { width, height } = Dimensions.get("window");
 
 export default function Profile() {
   return (
     <View style={styles.container}>
+      <StatusBar hidden={true} />
       <AnimatedContainer>
         <View style={styles.content}>
           <Text style={styles.textItems}>"Profile"</Text>
